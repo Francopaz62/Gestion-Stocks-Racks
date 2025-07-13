@@ -4,8 +4,14 @@ import os
 
 CSV_PATH = "pallets.csv"  # Asegurate que sea el nombre correcto
 
-# Carga los datos o crea estructura base si no existe el CSV
 def cargar_datos():
+    """
+    Carga el DataFrame desde un archivo CSV si existe,
+    o crea una estructura base con racks, filas y columnas predeterminadas.
+
+    Retorna:
+        pd.DataFrame: DataFrame con los datos cargados o inicializados.
+    """
     try:
         if os.path.exists(CSV_PATH):
             df = pd.read_csv(CSV_PATH, dtype=str)
@@ -34,16 +40,25 @@ def cargar_datos():
         return df
     except Exception as e:
         st.error(f"Error cargando los datos: {e}")
-        return pd.DataFrame()  # Devuelve un df vacío para que la app no se caiga
+        return pd.DataFrame()
 
-# Guarda el DataFrame en el CSV
 def guardar_datos(df):
+    """
+    Guarda el DataFrame en un archivo CSV.
+
+    Args:
+        df (pd.DataFrame): DataFrame con los datos a guardar.
+    """
     try:
         df.to_csv(CSV_PATH, index=False)
     except Exception as e:
         st.error(f"Error guardando los datos: {e}")
 
 def main():
+    """
+    Función principal que ejecuta la aplicación Streamlit para la gestión de stock en racks.
+    Muestra la interfaz gráfica, permite seleccionar racks y editar la información de cada slot.
+    """
     st.title("Gestión de Stock en Racks")
 
     df = cargar_datos()
