@@ -1,0 +1,17 @@
+# Entorno virtual
+.venv/
+
+# Archivos del sistema
+__pycache__/
+*.pyc
+
+# CSV generado por la app
+pallets.csv
+
+# Configuraciones de VS Code (opcionales)
+.vscode/
+
+# Archivos temporales o de backup
+*.log
+*.bak
+*.tmp
