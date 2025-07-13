@@ -6,35 +6,42 @@ CSV_PATH = "pallets.csv"  # Asegurate que sea el nombre correcto
 
 # Carga los datos o crea estructura base si no existe el CSV
 def cargar_datos():
-    if os.path.exists(CSV_PATH):
-        df = pd.read_csv(CSV_PATH, dtype=str)
-    else:
-        racks = ['R1', 'R2', 'R3', 'R4', 'R5']
-        filas = ['A', 'B', 'C', 'D', 'E', 'F']
-        columnas = ['1', '2', '3', '4']
-        datos = []
-        for rack in racks:
-            for fila in filas:
-                for col in columnas:
-                    datos.append({
-                        'rack': rack,
-                        'slot': f"{fila}{col}",
-                        'producto': '',
-                        'fecha_vto': '',
-                        'cantidad': '0',
-                        'fecha_produccion': '',
-                        'fecha_acomodado': '',
-                        'lote': ''
-                    })
-        df = pd.DataFrame(datos)
-        df.to_csv(CSV_PATH, index=False)
-    df.fillna('', inplace=True)
-    df['cantidad'] = df['cantidad'].apply(lambda x: int(x) if str(x).isdigit() else 0)
-    return df
+    try:
+        if os.path.exists(CSV_PATH):
+            df = pd.read_csv(CSV_PATH, dtype=str)
+        else:
+            racks = ['R1', 'R2', 'R3', 'R4', 'R5']
+            filas = ['A', 'B', 'C', 'D', 'E', 'F']
+            columnas = ['1', '2', '3', '4']
+            datos = []
+            for rack in racks:
+                for fila in filas:
+                    for col in columnas:
+                        datos.append({
+                            'rack': rack,
+                            'slot': f"{fila}{col}",
+                            'producto': '',
+                            'fecha_vto': '',
+                            'cantidad': '0',
+                            'fecha_produccion': '',
+                            'fecha_acomodado': '',
+                            'lote': ''
+                        })
+            df = pd.DataFrame(datos)
+            df.to_csv(CSV_PATH, index=False)
+        df.fillna('', inplace=True)
+        df['cantidad'] = df['cantidad'].apply(lambda x: int(x) if str(x).isdigit() else 0)
+        return df
+    except Exception as e:
+        st.error(f"Error cargando los datos: {e}")
+        return pd.DataFrame()  # Devuelve un df vacío para que la app no se caiga
 
 # Guarda el DataFrame en el CSV
 def guardar_datos(df):
-    df.to_csv(CSV_PATH, index=False)
+    try:
+        df.to_csv(CSV_PATH, index=False)
+    except Exception as e:
+        st.error(f"Error guardando los datos: {e}")
 
 def main():
     st.title("Gestión de Stock en Racks")
