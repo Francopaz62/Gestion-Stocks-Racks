@@ -1,5 +1,5 @@
 rack,slot,producto,fecha_vto,cantidad,fecha_produccion,fecha_acomodado,lote
-R1,A1,Pepas x300g,2025-12-16,300,2025-07-13,2025-07-14,133
+R1,A1,,2025-12-16,300,2025-07-13,2025-07-14,
 R1,A2,Bizchochos azucarados,2025-07-31,100,2025-07-13,2025-07-13,144
 R1,A3,bizcochos de grasa carrefour,,0,,,
 R1,A4,,,0,,,
