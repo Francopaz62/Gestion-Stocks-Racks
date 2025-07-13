@@ -6,6 +6,16 @@ FILAS = ['A', 'B', 'C', 'D', 'E', 'F']
 COLUMNAS = ['1', '2', '3', '4']
 
 def cargar_datos(path="data/pallets.csv"):
+    """
+    Carga los datos de stock desde un archivo CSV. Si el archivo no existe, 
+    genera un DataFrame con todos los slots vacíos según la estructura definida.
+
+    Args:
+        path (str): Ruta del archivo CSV a cargar.
+
+    Retorna:
+        pd.DataFrame: DataFrame con los datos de stock.
+    """
     try:
         df = pd.read_csv(path)
         df['fecha_vto'] = pd.to_datetime(df['fecha_vto'], errors='coerce')
@@ -32,4 +42,11 @@ def cargar_datos(path="data/pallets.csv"):
         return pd.DataFrame(data)
 
 def guardar_datos(df, path="data/pallets.csv"):
+    """
+    Guarda el DataFrame con los datos de stock en un archivo CSV.
+
+    Args:
+        df (pd.DataFrame): DataFrame con los datos a guardar.
+        path (str): Ruta del archivo CSV donde guardar los datos.
+    """
     df.to_csv(path, index=False)
